@@ -1,0 +1,80 @@
+C51 COMPILER V9.01   MAIN                                                                  02/18/2018 00:24:32 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: D:\Program Files (x86)\keil 破解版软件\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg52.h>
+   2          #include<intrins.h>
+   3          
+   4          typedef unsigned char u8;
+   5          typedef unsigned int u16;
+   6          
+   7          sbit LSA=P2^2;
+   8          sbit LSB=P2^3;
+   9          sbit LSC=P2^4;
+  10          
+  11          u8 code smgduan[16]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x77,
+  12                                    0x7c,0x39,0x5e,0x79,0x71};       //共阴
+  13          
+  14          void delay(u16 i)
+  15          {
+  16   1              while(i--);
+  17   1      }
+  18          
+  19          void DigDisplay()                                       //增强可读性
+  20          {
+  21   1              u8 i;
+  22   1              for(i=0;i<8;i++)
+  23   1              {
+  24   2                      switch(i)
+  25   2                      {
+  26   3                              case 0:
+  27   3                                      LSA=0;LSB=0;LSC=0;break;
+  28   3                              case 1:
+  29   3                                      LSA=1;LSB=0;LSC=0;break;
+  30   3                              case 2:
+  31   3                                      LSA=0;LSB=1;LSC=0;break;
+  32   3                              case 3:
+  33   3                                      LSA=1;LSB=1;LSC=0;break;
+  34   3                              case 4:
+  35   3                                      LSA=0;LSB=0;LSC=1;break;
+  36   3                              case 5:
+  37   3                                      LSA=1;LSB=0;LSC=1;break;
+  38   3                              case 6:
+  39   3                                      LSA=0;LSB=1;LSC=1;break;
+  40   3                              case 7:
+  41   3                                      LSA=1;LSB=1;LSC=1;break;
+  42   3                      }
+  43   2                      P0=smgduan[i+0];           //假如显示1-8
+  44   2                      delay(100);                        //时间太短会乱、错
+  45   2                      P0=0x00;
+  46   2              }
+  47   1      }
+  48          
+  49          void main()
+  50          {
+  51   1              while(1)
+  52   1              {
+  53   2                      DigDisplay();
+  54   2              } 
+  55   1      }
+C51 COMPILER V9.01   MAIN                                                                  02/18/2018 00:24:32 PAGE 2   
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    125    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
